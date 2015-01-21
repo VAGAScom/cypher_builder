@@ -1,7 +1,12 @@
 require 'cypher_builder/version'
 
 module CypherBuilder
+  module Adapter
+  end
 end
+
+require 'cypher_builder/adapter/neography'
+CypherBuilder::Adapter::DEFAULT = CypherBuilder::Adapter::Neography.new if defined?(::Neography)
 
 require 'cypher_builder/payload'
 require 'cypher_builder/resolver'

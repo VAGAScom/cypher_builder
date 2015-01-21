@@ -6,7 +6,7 @@ module CypherBuilder
     end
 
     # @param adapter [Adapter]
-    def initialize(adapter)
+    def initialize(adapter = Adapter::DEFAULT)
       @adapter = adapter
     end
 
