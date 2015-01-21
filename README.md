@@ -31,11 +31,12 @@ Or install it yourself as:
 
 Then, later:
 
-    query = MyQuery.new(NeographyAdapter.new)
+    query = MyQuery.new(Adapter::Neography.new)
     array_of_hashes = query.execute(full_name: 'My Stuff')
 
 Or:
 
+    # Default adapter to "Adapter::Neography"
     array_of_hashes = MyQuery.exec(full_name: 'My Stuff')
 
 ## Contributing

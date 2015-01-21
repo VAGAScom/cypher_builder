@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['ronie.uliana@gmail.com']
   spec.summary       = %q{Build Cypher query classes (Neo4j).}
   spec.description   = %q{Build Cypher query classes (Neo4j).}
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/ruliana/cypher_builder'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
