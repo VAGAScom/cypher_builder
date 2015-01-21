@@ -1,8 +1,17 @@
 require 'spec_helper'
 
 describe Cypher do
+  let(:adapter) { instance_spy(Adapter::Neography) }
+  describe '.exec' do
+    it 'executes with default adapter' do
+      c = Node('c')
+      cypher_class = Cypher(Match(c),
+                            Return(c.name))
+      cypher_class.exec(adapter)
+      expect(adapter).to have_received(:execute).with('MATCH (c) RETURN c.name', {})
+    end
+  end
   describe '#execute' do
-    let(:adapter) { instance_spy('Adapter') }
     it 'executes an empty query' do
       cypher_class = Cypher()
       cypher_class.new(adapter).execute

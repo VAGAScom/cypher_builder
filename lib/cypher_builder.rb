@@ -6,7 +6,10 @@ module CypherBuilder
 end
 
 require 'cypher_builder/adapter/neography'
-CypherBuilder::Adapter::DEFAULT = CypherBuilder::Adapter::Neography.new if defined?(::Neography)
+require 'neography' rescue nil
+if defined?(::Neography)
+  CypherBuilder::Adapter::DEFAULT = CypherBuilder::Adapter::Neography.new
+end
 
 require 'cypher_builder/payload'
 require 'cypher_builder/resolver'

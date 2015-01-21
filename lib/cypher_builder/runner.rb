@@ -3,6 +3,10 @@ module CypherBuilder
     class << self
       # @return [Cypher]
       attr_accessor :cypher
+
+      def exec(adapter = Adapter::DEFAULT, ** params)
+        self.new(adapter).execute(** params)
+      end
     end
 
     # @param adapter [Adapter]
