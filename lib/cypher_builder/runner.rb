@@ -16,7 +16,8 @@ module CypherBuilder
 
     def execute(** params)
       payload = Payload.new(params)
-      cypher = self.class.cypher.as_cypher(payload: payload)
+      context = Context.new
+      cypher = self.class.cypher.as_cypher(payload: payload, context: context)
       @adapter.execute(cypher, payload.necessary)
     end
   end

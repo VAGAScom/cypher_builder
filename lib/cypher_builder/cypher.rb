@@ -12,8 +12,8 @@ module CypherBuilder
       @parts = wrap(*parts)
     end
 
-    def as_cypher(opts)
-      resolve(@parts, ** opts)
+    def as_cypher(payload:, context:)
+      resolve(@parts, payload: payload, context: context.add(self))
     end
   end
 end

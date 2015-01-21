@@ -10,8 +10,8 @@ module CypherBuilder
       @parts = wrap(*parts)
     end
 
-    def as_cypher(opts)
-      sprintf('RETURN %s', resolve(@parts, separator: ', ', **opts))
+    def as_cypher(payload:, context: )
+      sprintf('RETURN %s', resolve(@parts, separator: ', ', payload: payload, context: context.add(self)))
     end
   end
 end

@@ -10,8 +10,8 @@ module CypherBuilder
       @parts = wrap(*parts)
     end
 
-    def as_cypher(opts)
-      resolve(@parts, format: 'MATCH (%s)', separator: ', ', ** opts)
+    def as_cypher(payload:, context: )
+      resolve(@parts, format: 'MATCH (%s)', separator: ', ', payload: payload, context: context.add(self))
     end
   end
 end

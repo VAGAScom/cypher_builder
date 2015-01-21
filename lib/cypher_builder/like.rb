@@ -10,8 +10,10 @@ module CypherBuilder
       @left, @right = wrap(left, right)
     end
 
-    def as_cypher(opts)
-      sprintf('%s LIKE %s', resolve(@left, ** opts), resolve(@right, ** opts))
+    def as_cypher(payload:, context: )
+      sprintf('%s LIKE %s',
+              resolve(@left, payload: payload, context: context.add(self)),
+              resolve(@right, payload: payload, context: context.add(self)))
     end
   end
 end

@@ -8,7 +8,7 @@ describe Cypher do
       cypher_class = Cypher(Match(c),
                             Return(c.name))
       cypher_class.exec(adapter)
-      expect(adapter).to have_received(:execute).with('MATCH (c) RETURN c.name', {})
+      expect(adapter).to have_received(:execute).with('MATCH (c) RETURN c.name AS name', {})
     end
   end
   describe '#execute' do
@@ -22,7 +22,7 @@ describe Cypher do
       cypher_class = Cypher(Match(c),
                             Return(c.name))
       cypher_class.new(adapter).execute
-      expect(adapter).to have_received(:execute).with('MATCH (c) RETURN c.name', {})
+      expect(adapter).to have_received(:execute).with('MATCH (c) RETURN c.name AS name', {})
     end
     it 'executes the most complex query possible (exercises everything currently implemented)' do
       c = Node('c', labels: 'what')
@@ -31,7 +31,7 @@ describe Cypher do
                                       Like(c.staff, 'test%'))),
                             Return(c.name, Alias(c.stuff, 'something')))
       cypher_class.new(adapter).execute(thing: 'of course')
-      expect(adapter).to have_received(:execute).with('MATCH (c:what) WHERE c.stuff = {thing} AND c.staff LIKE "test%" RETURN c.name, c.stuff AS something', {thing: 'of course'})
+      expect(adapter).to have_received(:execute).with('MATCH (c:what) WHERE c.stuff = {thing} AND c.staff LIKE "test%" RETURN c.name AS name, c.stuff AS something', {thing: 'of course'})
     end
     context 'with Opt' do
       before do
@@ -47,23 +47,23 @@ describe Cypher do
       end
       it 'generates first option' do
         @cypher_class.new(adapter).execute(name: true)
-        expect(adapter).to have_received(:execute).with('MATCH (c) RETURN c.name', {})
+        expect(adapter).to have_received(:execute).with('MATCH (c) RETURN c.name AS name', {})
       end
       it 'generates first option with multiple uses' do
         @cypher_class2.new(adapter).execute(name: 'Testing Test')
-        expect(adapter).to have_received(:execute).with('MATCH (c) WHERE c.name = {name} RETURN c.name', {name: 'Testing Test'})
+        expect(adapter).to have_received(:execute).with('MATCH (c) WHERE c.name = {name} RETURN c.name AS name', {name: 'Testing Test'})
       end
       it 'generates second option' do
         @cypher_class.new(adapter).execute(thing: true)
-        expect(adapter).to have_received(:execute).with('MATCH (c) RETURN c.thing', {})
+        expect(adapter).to have_received(:execute).with('MATCH (c) RETURN c.thing AS thing', {})
       end
       it 'generates second option with multiple uses' do
         @cypher_class2.new(adapter).execute(thing: 123)
-        expect(adapter).to have_received(:execute).with('MATCH (c) WHERE c.thing = {thing} RETURN c.thing', {thing: 123})
+        expect(adapter).to have_received(:execute).with('MATCH (c) WHERE c.thing = {thing} RETURN c.thing AS thing', {thing: 123})
       end
       it 'defaults to firts option' do
         @cypher_class.new(adapter).execute
-        expect(adapter).to have_received(:execute).with('MATCH (c) RETURN c.name', {})
+        expect(adapter).to have_received(:execute).with('MATCH (c) RETURN c.name AS name', {})
       end
     end
   end

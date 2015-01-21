@@ -10,12 +10,12 @@ module CypherBuilder
       @params_and_parts = Hash[params_and_parts.map { |k, v| [k, wrap(v)] }]
     end
 
-    def as_cypher(payload:)
+    def as_cypher(payload:, context:)
       param, part = @params_and_parts.find { |k, _| payload.include?(k) }
       part = @params_and_parts.values.first unless part
       payload.already_used(param) if param
 
-      resolve(part, payload: payload)
+      resolve(part, payload: payload, context: context.add(self))
     end
   end
 end

@@ -12,10 +12,12 @@ if defined?(::Neography)
 end
 
 require 'cypher_builder/payload'
+require 'cypher_builder/context'
 require 'cypher_builder/resolver'
 require 'cypher_builder/runner'
 require 'cypher_builder/cypher'
 
+require 'cypher_builder/as_is'
 require 'cypher_builder/opt'
 require 'cypher_builder/field'
 require 'cypher_builder/node'

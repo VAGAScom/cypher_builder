@@ -8,7 +8,7 @@ module CypherBuilder
       @name = name
     end
 
-    def as_cypher(payload:)
+    def as_cypher(payload:, context:)
       payload.will_be_used(@name)
       sprintf('{%s}', @name)
     end

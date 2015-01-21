@@ -9,7 +9,9 @@ module CypherBuilder::Resolver
     end
   end
 
-  def resolve(parts, format: '%s', separator: ' ', payload:)
-    Array(parts).map { |p| sprintf(format, p.as_cypher(payload: payload)) }.join(separator).strip
+  def resolve(parts, format: '%s', separator: ' ', ** opts)
+    Array(parts).map do |p|
+      sprintf(format, p.as_cypher(** opts))
+    end.join(separator).strip
   end
 end
