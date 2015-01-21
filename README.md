@@ -1,5 +1,7 @@
 # CypherBuilder
 
+[![Gem Version](https://badge.fury.io/rb/cypher_builder.svg)](http://badge.fury.io/rb/cypher_builder)
+
 Build Cypher query classes (Neo4j).
 
 It creates Command classes that executes Cypher queries using Neography. The goal is make class creation easier.

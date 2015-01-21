@@ -11,14 +11,17 @@ if defined?(::Neography)
   CypherBuilder::Adapter::DEFAULT = CypherBuilder::Adapter::Neography.new
 end
 
-require 'cypher_builder/payload'
-require 'cypher_builder/context'
-require 'cypher_builder/resolver'
-require 'cypher_builder/runner'
-require 'cypher_builder/cypher'
+require 'cypher_builder/infra/payload'
+require 'cypher_builder/infra/context'
+require 'cypher_builder/infra/resolver'
+require 'cypher_builder/infra/runner'
 
+# Not in Cypher
+require 'cypher_builder/cypher'
 require 'cypher_builder/as_is'
 require 'cypher_builder/opt'
+
+# Cypher
 require 'cypher_builder/field'
 require 'cypher_builder/node'
 require 'cypher_builder/param'
