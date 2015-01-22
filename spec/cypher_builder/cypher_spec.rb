@@ -40,9 +40,11 @@ describe Cypher do
       cypher_class = Cypher(Match(r.from(c).to(n)),
                             Where(And(Eql(c.stuff, Param('thing')),
                                       Like(c.staff, 'test%'))),
-                            Return(c.name, Alias(c.stuff, 'something')))
+                            Return(c.name, Alias(c.stuff, 'something')),
+                            OrderBy(c.name, :desc, c.stuff),
+                            Limit(10))
       cypher_class.new(adapter).execute(thing: 'of course')
-      expect(adapter).to have_received(:execute).with('MATCH (c:what)-[r]->(n) WHERE c.stuff = {thing} AND c.staff LIKE "test%" RETURN c.name AS name, c.stuff AS something', {thing: 'of course'})
+      expect(adapter).to have_received(:execute).with('MATCH (c:what)-[r]->(n) WHERE c.stuff = {thing} AND c.staff LIKE "test%" RETURN c.name AS name, c.stuff AS something ORDER BY c.name desc, c.stuff LIMIT 10', {thing: 'of course'})
     end
     context 'with Opt' do
       before do
