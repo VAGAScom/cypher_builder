@@ -11,7 +11,7 @@ module CypherBuilder
     end
 
     def as_cypher(payload:, context: )
-      resolve(@parts, format: 'MATCH (%s)', separator: ', ', payload: payload, context: context.add(self))
+      resolve(@parts, format: 'MATCH %s', separator: ', ', payload: payload, context: context.add(self))
     end
   end
 end

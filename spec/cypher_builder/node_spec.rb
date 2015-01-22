@@ -8,9 +8,9 @@ describe Node do
     let(:node_multiple_labels) { Node('x', labels: ['uga', 'buga']) }
 
     it 'converts to be used in "match"' do
-      expect(node.as_cypher).to eq 'x:uga'
-      expect(node_prefix_only.as_cypher).to eq 'x'
-      expect(node_multiple_labels.as_cypher).to eq 'x:uga:buga'
+      expect(node.as_cypher).to eq '(x:uga)'
+      expect(node_prefix_only.as_cypher).to eq '(x)'
+      expect(node_multiple_labels.as_cypher).to eq '(x:uga:buga)'
     end
   end
 

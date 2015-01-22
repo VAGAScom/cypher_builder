@@ -24,6 +24,7 @@ require 'cypher_builder/opt'
 # Cypher
 require 'cypher_builder/field'
 require 'cypher_builder/node'
+require 'cypher_builder/rel'
 require 'cypher_builder/param'
 require 'cypher_builder/literal'
 require 'cypher_builder/match'

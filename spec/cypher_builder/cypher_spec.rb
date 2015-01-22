@@ -24,14 +24,25 @@ describe Cypher do
       cypher_class.new(adapter).execute
       expect(adapter).to have_received(:execute).with('MATCH (c) RETURN c.name AS name', {})
     end
+    it 'executes a query with relationships' do
+      c = Node('c')
+      n = Node('n')
+      r = Rel('r', labels: 'TEST')
+      cypher_class = Cypher(Match(r.from(c).to(n)),
+                            Return(c.name))
+      cypher_class.new(adapter).execute
+      expect(adapter).to have_received(:execute).with('MATCH (c)-[r:TEST]->(n) RETURN c.name AS name', {})
+    end
     it 'executes the most complex query possible (exercises everything currently implemented)' do
       c = Node('c', labels: 'what')
-      cypher_class = Cypher(Match(c),
+      n = Node('n')
+      r = Rel('r')
+      cypher_class = Cypher(Match(r.from(c).to(n)),
                             Where(And(Eql(c.stuff, Param('thing')),
                                       Like(c.staff, 'test%'))),
                             Return(c.name, Alias(c.stuff, 'something')))
       cypher_class.new(adapter).execute(thing: 'of course')
-      expect(adapter).to have_received(:execute).with('MATCH (c:what) WHERE c.stuff = {thing} AND c.staff LIKE "test%" RETURN c.name AS name, c.stuff AS something', {thing: 'of course'})
+      expect(adapter).to have_received(:execute).with('MATCH (c:what)-[r]->(n) WHERE c.stuff = {thing} AND c.staff LIKE "test%" RETURN c.name AS name, c.stuff AS something', {thing: 'of course'})
     end
     context 'with Opt' do
       before do

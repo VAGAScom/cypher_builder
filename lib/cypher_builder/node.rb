@@ -9,7 +9,7 @@ module CypherBuilder
     end
 
     def as_cypher(_ = nil)
-      [@prefix, *@labels].compact.join(':')
+      ::Kernel.sprintf('(%s)', [@prefix, *@labels].compact.join(':'))
     end
 
     def respond_to_missing?(name, include_private = false)
@@ -17,7 +17,7 @@ module CypherBuilder
     end
 
     def method_missing(name, *_)
-      ::Field.new(@prefix, name)
+      Field.new(@prefix, name)
     end
   end
 end
