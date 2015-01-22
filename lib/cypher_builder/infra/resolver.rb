@@ -3,6 +3,8 @@ module CypherBuilder::Resolver
     values.map do |v|
       if v.respond_to?(:as_cypher)
         v
+      elsif Symbol === v
+        AsIs.new(v)
       else
         Literal.new(v)
       end

@@ -11,7 +11,7 @@ module CypherBuilder
       @an_alias = an_alias
     end
 
-    def as_cypher(payload:, context: )
+    def as_cypher(payload:, context:)
       sprintf('%s AS %s', resolve(@field, payload: payload, context: context.add(self)), @an_alias)
     end
   end
